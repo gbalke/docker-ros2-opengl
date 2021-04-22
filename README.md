@@ -1,5 +1,5 @@
 # docker-drake-ros2-opengl
-Dockerfile and docker-compose.py for enabling OpenGL applications to run locally in an environment with the latest drake/ros2 builds.
+Dockerfile and docker-compose.py for enabling OpenGL applications to run locally in an environment with the latest drake (nightly) & ros2 (rolling) builds.
 
 This is meant to be run on a system with an NVIDIA GPU as their GLVND docker container is the centerpiece to this all working.
 
