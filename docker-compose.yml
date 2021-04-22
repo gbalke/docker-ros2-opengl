@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  drake-master:
+    network_mode: "host"
+    image: drake
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            capabilities: [gpu]
+    container_name: drake-master
+    build:
+      network: host
+      context: .
+      dockerfile: ./Dockerfile
+    privileged: true
+    # Not necessary when running in host network mode.
+    #ports:
+    #  - 8080:8080 # Passthrough for Jupyter Notebook
+    #  - 1234:1234 # Passthrough for SSH
+    environment:
+      - "DISPLAY"
+      - "QT_X11_NO_MITSHM=1" #fix some QT bugs
+    volumes: 
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw # Share X11 socket with container
+      - $HOME/.Xauthority:/home/ubuntu/.Xauthority:rw # Share X11 permissions
+      - $PWD/dev:/home/ubuntu/dev:rw
+    command: sleep infinity
