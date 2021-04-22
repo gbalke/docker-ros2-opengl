@@ -25,3 +25,6 @@ X11UseLocalhost no
 When running ssh, make sure to use the `-C` option to disable compression. __If this is not added, framerate will be abysmal.__
 
 __NOTE__: Re-run `docker-compose up -d` each time you ssh to the server as it will need to grab the updated .Xauthority file.
+
+## Testing
+As this is quite complicated and a bit tricky to set up, make sure to test that everything is working correctly by running `glxgears` in the docker container after opening a bash session. The `glxgears` demo should render in a local window!
