@@ -4,7 +4,7 @@
 This is meant to be run on a system with an NVIDIA GPU as their GLVND docker container is the centerpiece to this all working.
 
 ## Setup
-__NOTE__:Make sure to have docker-compose `1.28+` for GPU passthrough. Ubuntu 20.04 defaults to 1.25 I believe. I have used 1.29.1 which is the default in [this guide](https://docs.docker.com/compose/install/).
+__NOTE__:Make sure to have docker-compose `1.28+` for GPU passthrough. Ubuntu 20.04 defaults to `1.25` I believe. I have used `1.29.1` which is the default in [this guide](https://docs.docker.com/compose/install/).
 
 Run `setup.sh` to build the container. This will also create a folder called `dev`. Anything placed in here will be available inside of the container.
 
