@@ -24,7 +24,7 @@ X11DisplayOffset 10
 X11UseLocalhost no
 ```
 
-When running ssh, make sure to use the `-C` option to disable compression. __If this is not added, framerate will be abysmal.__ Your command should look something like:
+When running ssh, make sure to use the `-C` option to enable compression. __If this is not added, framerate will be abysmal.__ Your command should look something like:
 ```bash
 ssh user@host:port -X -C
 ```
