@@ -45,7 +45,7 @@ CMD ["/usr/sbin/sshd","-D"]
 # INSTALLING ROS2
 RUN apt update
 RUN apt install curl gnupg2 lsb-release -y
-RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | sudo apt-key add -
 RUN echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list
 
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y \
@@ -53,6 +53,7 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y \
     python3-rosdep2
 RUN apt install python3-colcon-common-extensions -y
 RUN rosdep update
+RUN apt update && apt upgrade -y
 
 # BUILDING AND INSTALLING DRAKE (This must be done as non-sudo)
 USER ubuntu
@@ -60,14 +61,13 @@ ADD --chown=ubuntu:1000 $PWD/drake /home/ubuntu/drake
 RUN (echo "$user_pass" && yes && cat) | sudo -S DEBIAN_FRONTEND=noninteractive \
     /home/ubuntu/drake/setup/ubuntu/install_prereqs.sh
 
-# Set up python bindings - https://drake.mit.edu/python_bindings.html
 RUN mkdir -p /home/ubuntu/drake/drake-build
 RUN chown ubuntu /home/ubuntu/drake/drake-build
 RUN cd /home/ubuntu/drake/drake-build && cmake ../ && make -j
-RUN echo 'export PYTHONPATH=/home/ubuntu/drake/drake-build/install/lib/python3.8/site-packages:${PYTHONPATH}' >> /home/ubuntu/.bashrc
 
 RUN mkdir -p /home/ubuntu/drake-binary
 ADD --chown=ubuntu:1000 https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-focal.tar.gz /home/ubuntu/drake-binary
 RUN cd /home/ubuntu/drake-binary && tar xzf drake-latest-focal.tar.gz
+RUN echo 'export PYTHONPATH=/home/ubuntu/drake-binary/drake/lib/python3.8/site-packages:${PYTHONPATH}' >> /home/ubuntu/.bashrc
 RUN echo "export drake_DIR=/home/ubuntu/drake-binary/drake/lib/cmake/drake" >> /home/ubuntu/.bashrc
 RUN echo "source /opt/ros/rolling/setup.bash" >> /home/ubuntu/.bashrc
