@@ -57,17 +57,4 @@ RUN apt update && apt upgrade -y
 
 # BUILDING AND INSTALLING DRAKE (This must be done as non-sudo)
 USER ubuntu
-ADD --chown=ubuntu:1000 $PWD/drake /home/ubuntu/drake
-RUN (echo "$user_pass" && yes && cat) | sudo -S DEBIAN_FRONTEND=noninteractive \
-    /home/ubuntu/drake/setup/ubuntu/install_prereqs.sh
-
-RUN mkdir -p /home/ubuntu/drake/drake-build
-RUN chown ubuntu /home/ubuntu/drake/drake-build
-RUN cd /home/ubuntu/drake/drake-build && cmake ../ && make -j
-
-RUN mkdir -p /home/ubuntu/drake-binary
-ADD --chown=ubuntu:1000 https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-focal.tar.gz /home/ubuntu/drake-binary
-RUN cd /home/ubuntu/drake-binary && tar xzf drake-latest-focal.tar.gz
-RUN echo 'export PYTHONPATH=/home/ubuntu/drake-binary/drake/lib/python3.8/site-packages:${PYTHONPATH}' >> /home/ubuntu/.bashrc
-RUN echo "export drake_DIR=/home/ubuntu/drake-binary/drake/lib/cmake/drake" >> /home/ubuntu/.bashrc
 RUN echo "source /opt/ros/rolling/setup.bash" >> /home/ubuntu/.bashrc

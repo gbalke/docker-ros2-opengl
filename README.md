@@ -1,5 +1,5 @@
-# docker-drake-ros2-opengl
-`Dockerfile` and `docker-compose.yml` for enabling OpenGL applications to run locally in an environment with the latest drake (nightly) & ros2 (rolling) builds.
+# docker-ros2-opengl
+`Dockerfile` and `docker-compose.yml` for enabling OpenGL applications to run locally in an environment with the latest ros2 (rolling) build.
 
 This is meant to be run on a system with an NVIDIA GPU as their GLVND docker container is the centerpiece to this all working.
 
@@ -11,7 +11,7 @@ You will need to [install nvidia's container toolkit](https://docs.nvidia.com/da
 Run `setup.sh` to build the container. This will also create a folder called `dev`. Anything placed in here will be available inside of the container.
 
 ## Use
-Run `docker-compose up -d` to initialize the container. Once initialized, run `bash.sh` from as many terminals as you'd like to jump right into developing! ROS2 will already be sourced and drake will be pathed for `cmake`.
+Run `docker-compose up -d` to initialize the container. Once initialized, run `bash.sh` from as many terminals as you'd like to jump right into developing! ROS2 will already be sourced.
 
 ## Remote Server
 In addition, if using X11 Forwarding, you can run OpenGL apps over ssh from within the docker container.

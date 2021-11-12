@@ -1,16 +1,16 @@
 version: '3.7'
 
 services:
-  drake-master:
+  ros2-master:
     network_mode: "host"
-    image: drake
+    image: ros2-rolling
     deploy:
       resources:
         reservations:
           devices:
           - driver: nvidia
             capabilities: [gpu]
-    container_name: drake-master
+    container_name: ros2-master
     build:
       network: host
       context: .
